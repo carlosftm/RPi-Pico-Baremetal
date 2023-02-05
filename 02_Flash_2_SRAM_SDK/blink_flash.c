@@ -1,7 +1,8 @@
 #define PUT32(address,value)  (*((volatile unsigned int*)address))=value
 #define GET32(address) *(volatile unsigned int*)address
 
-int main(void) {
+__attribute__((used, section(".boot.entry"))) int main(void)
+{
 
         PUT32( 0x4000f000, ( 1 << 5 ) );               // IO BANK
 
@@ -13,7 +14,7 @@ int main(void) {
         while( 1 )
         {
                 PUT32( 0xd000001c, ( 1 << 25 ) );      // XOR GPIO
-                for ( volatile unsigned int a = 50000; a > 0; a-- );
+                for ( volatile unsigned int a = 10000; a > 0; a-- );
         }
 
         return 0;
