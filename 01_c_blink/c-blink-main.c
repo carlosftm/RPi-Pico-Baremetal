@@ -1,3 +1,6 @@
+// Copyright (c) 2023 CarlosFTM
+// This code is licensed under MIT license (see LICENSE.txt for details)
+
 #define PUT32(address,value)  (*((volatile unsigned int*)address))=value
 #define GET32(address) *(volatile unsigned int*)address
 
