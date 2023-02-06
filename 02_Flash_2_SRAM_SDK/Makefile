@@ -1,3 +1,6 @@
+# Copyright (c) 2023 CarlosFTM
+# This code is licensed under MIT license (see LICENSE.txt for details)
+
 NAME    = blink_flash
 CPU     = cortex-m0plus
 ARMGNU  = arm-none-eabi
