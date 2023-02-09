@@ -1,0 +1,23 @@
+{
+    // Simple task to build the project
+    // by presing ctrl+shift+b on MSVSC
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build Project",
+            "command": "make clean; make all;",
+            "options": {
+                "cwd": "${workspaceFolder}/${relativeFileDirname}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "base": "$gcc", 
+                "fileLocation": ["relative", "${workspaceFolder}/${relativeFileDirname}"]
+            }
+        }
+    ]
+}
