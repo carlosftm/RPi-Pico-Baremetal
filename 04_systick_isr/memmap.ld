@@ -10,6 +10,8 @@ SECTIONS
                 __boot2_start__ = .;
                 KEEP(*(.boot2))
                 __boot2_end__ = .;
+                KEEP(*(.vectors))
+                . = ORIGIN(RAM) + 0x200;
                 KEEP(*(.boot.entry))
                 KEEP(*(.text*))
                 __end_code_ = .;
