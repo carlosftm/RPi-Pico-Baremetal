@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+            "type": "shell",
+            "label": "Build Project with Make file",
+            "command": "make clean; make all;",
+            "options": {
+                "cwd": "${workspaceFolder}/${relativeFileDirname}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "base": "$gcc", 
+                "fileLocation": ["relative", "${workspaceFolder}/${relativeFileDirname}"]
+            }
+        }		
+	]
+}
