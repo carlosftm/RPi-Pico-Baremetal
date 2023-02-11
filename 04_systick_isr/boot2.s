@@ -33,12 +33,12 @@
     ldr r5, =0x20000100  ;@ Destination (SRAM)
     ldr r6, =0x1000      ;@ Size of code
 
-copyToRam:
+_copyToRam:
     ;@ load 16 bytes from FLASH to RAM at a time
     ldmia r4!, {r0-r3}
     stmia r5!, {r0-r3}    
-    sub r6, #16
-    bne copyToRam
+    sub   r6, #16
+    bne   _copyToRam
 
     ;@ Jump to the main function
     ldr r1, =VTOR
@@ -49,7 +49,7 @@ copyToRam:
     mov sp, r0
 
     ldr r0, =0x20000201;
-    bx r0
+    bx  r0
 
 .set XIP_SSI_BASE,       0x18000000
 .set XIP_SSI_CTRLR0,     XIP_SSI_BASE + 0x00

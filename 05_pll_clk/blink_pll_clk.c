@@ -54,7 +54,7 @@ void blinkLed(void)
 /**********************************
  * Main Function
  * ****************************** */
-__attribute__((used, section(".boot.entry"))) int main(void)
+__attribute__( ( used, section( ".boot.entry" ) ) ) int main( void )
 {
     // Setup LED
     PUT32( ( RESETS_RESET | CLR ), ( 1 << 5 ) );               // IO BANK
@@ -86,14 +86,14 @@ __attribute__((used, section(".boot.entry"))) int main(void)
 
     // Set the PLL_SYS dividers and power up the VCO
     PUT32( PLL_SYS_FBDIV, 0xFF);                                   // FBDIV = 255
-    PUT32( ( PLL_SYS_POW | CLR ), ( 1 << 5 ) | ( 1 << 0));                   // PWR = VCO Power Down + PLL Power Down
-    while ( GET32( PLL_SYS_CS ) & ( 1<< 31 ) == 0 );               // VCO locked?
+    PUT32( ( PLL_SYS_POW | CLR ), ( 1 << 5 ) | ( 1 << 0 ) );                   // PWR = VCO Power Down + PLL Power Down
+    while ( GET32( PLL_SYS_CS ) & ( 1 << 31 ) == 0 );               // VCO locked?
 
     PUT32( ( PLL_SYS_POW | CLR ), ( 1 << 3 ) );                    // Power Up PLL Post Div
     PUT32 ( ( CLK_SYS_CTRL ), ( 1 << 0 ) );                        // CLK_SYS to use clk_sys_aux -> pll_sys
 
     // Blink for ever using PLL as source clock
-    while(1)
+    while( 1 )
     {
         blinkLed();
     }

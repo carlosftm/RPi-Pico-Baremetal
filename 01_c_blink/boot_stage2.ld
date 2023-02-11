@@ -7,7 +7,7 @@ MEMORY {
 SECTIONS {
     . = ORIGIN(SRAM);
     .text : {
-	*(.vectors)
+        *(.vectors)
         *(.entry)
         *(.text)
     } >SRAM

@@ -51,67 +51,62 @@
 static void setupClocks(void)
 {
     // Enable the XOSC
-    PUT32(XOSC_CTRL, 0xAA0);            // Frequency range: 1_15MHZ
-    PUT32(XOSC_STARTUP, 0xc4);          // Startup delay ( default value )
-    PUT32((XOSC_CTRL | SET), 0xFAB000); // Enable ( magic word )
-    while (!(GET32(XOSC_STATUS) & 0x80000000)); // Oscillator is running and stable
+    PUT32( XOSC_CTRL, 0xAA0 );                       // Frequency range: 1_15MHZ
+    PUT32( XOSC_STARTUP, 0xc4 );                     // Startup delay ( default value )
+    PUT32( ( XOSC_CTRL | SET ), 0xFAB000 );          // Enable ( magic word )
+    while( !( GET32( XOSC_STATUS ) & 0x80000000 ) ); // Oscillator is running and stable
 
     // Set the XOSC as source clock for REF, SYS and Periferals
-    PUT32(CLK_REF_CTRL, 2);                     // CLK REF source = xosc_clksrc
-    PUT32(CLK_SYS_CTRL, 0);                     // CLK SYS source = clk_ref
-    PUT32(CLK_REF_DIV, (1 << 8));               // CLK REF Divisor = 1
-    PUT32(CLK_PERI_CTRL, (1 << 11) | (4 << 5)); // CLK PERI Enable & AUX SRC = xosc_clksrc
+    PUT32( CLK_REF_CTRL, 2 );                         // CLK REF source = xosc_clksrc
+    PUT32( CLK_SYS_CTRL, 0 );                         // CLK SYS source = clk_ref
+    PUT32( CLK_REF_DIV, ( 1 << 8 ) );                 // CLK REF Divisor = 1
+    PUT32( CLK_PERI_CTRL, ( 1 << 11 ) | ( 4 << 5 ) ); // CLK PERI Enable & AUX SRC = xosc_clksrc
 }
 
 /* reset the subsystems used in this program */
 static void resetSubsys()
 {
     // Reset IO Bank
-    PUT32((RESETS_RESET | CLR), (1 << 5));
-    while (GET32(RESETS_RESET_DONE) & (1 << 5) == 0)
-        ;
+    PUT32( ( RESETS_RESET | CLR ), ( 1 << 5 ) );
+    while( GET32( RESETS_RESET_DONE ) & ( 1 << 5 ) == 0 );
     // Reset PADS BANK
-    PUT32((RESETS_RESET | CLR), (1 << 8));
-    while (GET32(RESETS_RESET_DONE) & (1 << 8) == 0)
-        ;
+    PUT32( ( RESETS_RESET | CLR ), ( 1 << 8 ) );
+    while( GET32( RESETS_RESET_DONE ) & (1 << 8) == 0 );
     // Reset UART0
-    PUT32((RESETS_RESET | CLR), (1 << 22));
-    while (GET32(RESETS_RESET_DONE) & (1 << 22) == 0)
-        ;
+    PUT32( ( RESETS_RESET | CLR ), ( 1 << 22 ) );
+    while( GET32( RESETS_RESET_DONE ) & ( 1 << 22 ) == 0 );
 }
 
 /* configures UART0 to 9600 8N1*/
 static void configUart(void)
 {
-    PUT32((UART0_UARTIBRD), 78);                           // Baud rate integer part
-    PUT32((UART0_UARTFBRD), 8);                            // Baud rate fractional part
-    PUT32((UART0_UARTLCR_H), (0x3 << 5) | (1 << 4));       // Word len 8 + FIFO Enable
-    PUT32((UART0_UARTCR), (1 << 9) | (1 << 8) | (1 << 0)); // UART Enable + TX and RX enable
+    PUT32( ( UART0_UARTIBRD ), 78 );                                 // Baud rate integer part
+    PUT32( ( UART0_UARTFBRD ), 8 );                                  // Baud rate fractional part
+    PUT32( ( UART0_UARTLCR_H ), ( 0x3 << 5 ) | ( 1 << 4 ) );         // Word len 8 + FIFO Enable
+    PUT32( ( UART0_UARTCR ), ( 1 << 9 ) | ( 1 << 8 ) | ( 1 << 0 ) ); // UART Enable + TX and RX enable
 }
 
 /* UART receive character */
 static unsigned char uartRx(void)
 {
-    while ((GET32((UART0_UARTFR)) & (1 << 4)) != 0)
-        ;                               // wait for RX FIFO to not be empty
-    return (char)(GET32(UART0_UARTDR)); // Read the RX data
+    while( ( GET32( ( UART0_UARTFR ) ) & ( 1 << 4 ) ) != 0 ); // wait for RX FIFO to not be empty
+    return( ( char )( GET32( UART0_UARTDR ) ) );              // Read the RX data
 }
 
 /* UART Send single character */
-static void uartTx(unsigned char x)
+static void uartTx( unsigned char x )
 {
-    while ((GET32((UART0_UARTFR)) & (1 << 5)) != 0)
-        ;                   // wait until TX FIFO is not full
-    PUT32(UART0_UARTDR, x); // Write the TX data
+    while( ( GET32( ( UART0_UARTFR ) ) & ( 1 << 5 ) ) != 0 ); // wait until TX FIFO is not full
+    PUT32( UART0_UARTDR, x );                                 // Write the TX data
 }
 
 /* UART Send character string */
-static void uartTxStr(unsigned char *x)
+static void uartTxStr( unsigned char *x )
 {
     // Write the string of data until the NULL char is detected
-    while (*x != '\0')
+    while( *x != '\0' )
     {
-        uartTx(*x);
+        uartTx( *x );
         *x++;
     }
 }
@@ -119,7 +114,7 @@ static void uartTxStr(unsigned char *x)
 /* ***********************************************
  * Main function
  * ********************************************* */
-__attribute__((used, section(".boot.entry"))) int main(void)
+__attribute__( ( used, section( ".boot.entry" ) ) ) int main( void )
 {
     // Setup clocks (XOSC as source clk)
     setupClocks();
@@ -129,11 +124,11 @@ __attribute__((used, section(".boot.entry"))) int main(void)
     configUart();
 
     // Set GPIO0 and 1 to function 2 (UART0)
-    PUT32((IO_BANK0_GPIO00_CTRL), 2);
-    PUT32((IO_BANK0_GPIO01_CTRL), 2);
+    PUT32( ( IO_BANK0_GPIO00_CTRL), 2 );
+    PUT32( ( IO_BANK0_GPIO01_CTRL), 2 );
     // Set GPIO25 as SIO ( F5) and GPIO OE
-    PUT32((IO_BANK0_GPIO25_CTRL), 5);
-    PUT32(SIO_GPIO_OE_SET, (1 << 25));
+    PUT32( ( IO_BANK0_GPIO25_CTRL), 5 );
+    PUT32( SIO_GPIO_OE_SET, ( 1 << 25 ) );
 
     char *welcomeMsg = "\r\n\n"
                        "888   |           888 888                Y88b         /                 888       888\r\n"
@@ -143,19 +138,19 @@ __attribute__((used, section(".boot.entry"))) int main(void)
                        "888   | Y888    , 888 888 Y888   '           Y88Y8Y     Y888   ' 888    888 Y888  888\r\n"
                        "888   |  `88___/  888 888  `88_-~             Y  Y       `88_-~  888    888  `88_/888\r\n\n";
 
-    uartTxStr(welcomeMsg);
+    uartTxStr( welcomeMsg );
 
-    while (1)
+    while( 1 )
     {
-        for (char cnt = 0; cnt < 20; cnt++)
+        for( char cnt = 0; cnt < 20; cnt++ )
         {
-            uartTx(('0' + cnt));
-            PUT32(SIO_GPIO_OUT_XOR, (1 << 25)); // XOR the LED pin
+            uartTx( ( '0' + cnt ) );
+            PUT32( SIO_GPIO_OUT_XOR, ( 1 << 25 ) ); // XOR the LED pin
         }
-        uartTxStr(" --> ");
-        uartTx(uartRx()); // Wait for inoput (bloking function)
-        uartTxStr("\r\n");
+        uartTxStr( " --> " );
+        uartTx( uartRx() );                         // Wait for inoput (bloking function)
+        uartTxStr( "\r\n" );
     }
 
-    return (0);
+    return ( 0 );
 }
