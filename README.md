@@ -6,9 +6,9 @@ Do you pine for the nice days of 8-bit microcontrollers, when men were men and w
 Tips:
 - Use a Raspberry Pi with Raspbian as your development machine. Most official guides are tested on Raspbian, so you may not find any issues on your Linux environment. 
     -  By using Microsoft Visual Studio Code with the Remote SSH extension on your Destop PC, you can work remotely on the source code and flash the Pico on the Raspberry Pi (via SSH).
-- The UF2 converter provided in the pico-sdk follows a strict memory map. As I'm not usiong the linkler script used on the SDK, sometimes my elf file did not fulfill the converter restrictions. For that reason I searched for another open source UF2 converter and found the one from Microsoft.
+- The UF2 converter provided in the pico-sdk follows a strict memory map. As I'm not using the linkler script provided in the SDK, in some cases my .elf file did not fulfill the converter memory rules. For that reason I searched for an open source alternative and found the ELF-to-UF2 converter from Microsoft. By using the --wait option, the converter waits the RPI-RP2 drive to be mounted to copy the generated UF2 file there. Very convenient.
 - Serial port:
-    - When working with serial port with RPI4, use "sudo raspi-conmfig" -> 3 Interfaces Options -> I6 Serial port to disable shell messages on the serial port and to enable it.
+    - When working with serial port with RPI4, use "sudo raspi-config" -> 3 Interfaces Options -> I6 Serial port to disable shell messages on the serial port and to enable it.
     - if still there is unwanted data on the RPI4 serial port, then disable the following services: "sudo systemctl disable serial-getty@serial0.service"
 
 References:
