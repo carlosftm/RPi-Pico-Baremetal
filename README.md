@@ -10,6 +10,11 @@ Tips:
 - Serial port:
     - When working with serial port with RPI4, use "sudo raspi-config" -> 3 Interfaces Options -> I6 Serial port to disable shell messages on the serial port and to enable it.
     - if still there is unwanted data on the RPI4 serial port, then disable the following services: "sudo systemctl disable serial-getty@serial0.service"
+- To generate the CMSIS Header file out of the rp2040.svd provided in the pico sdk:
+    - SVDconv tool: https://github.com/Open-CMSIS-Pack/devtools
+    - svd file: ~/pico/pico-sdk/src/rp2040/hardware_regs/rp2040.svd
+    - commnad: ./SVDConv rp2040.svd --generate=header --fields=struct --fields=macro  --fields=enum --debug-headerfile
+    - I had to add manually the peripheral declaration for the XOR, CLR and SET atomic access.
 
 References:
 - Raspberry Pi
