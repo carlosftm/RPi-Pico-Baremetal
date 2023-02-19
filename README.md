@@ -33,3 +33,7 @@ References:
     - Covenrter
         - https://github.com/microsoft/uf2
 - ASCII art: https://manytools.org/hacker-tools/ascii-banner/
+
+- BMP280 Digital Pressure Sensor
+    - Datasheet
+        - https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmp280-ds001.pdf
