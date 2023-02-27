@@ -1,17 +1,17 @@
 # Copyright (c) 2023 CarlosFTM
 # This code is licensed under MIT license (see LICENSE.txt for details)
 
-NAME    = i2c_blocking
+NAME    = uart_irq
 CPU     = cortex-m0plus
 ARMGNU  = arm-none-eabi
 AFLAGS  = --warn --fatal-warnings -mcpu=$(CPU) -g
-LDFLAGS = -nostdlib
+LDFLAGS = -nostdlib -nostartfiles
 INC_DIR = ./headers
 CFLAGS  = -mcpu=$(CPU) -ffreestanding -nostartfiles -g -O0 -fpic -mthumb -mfloat-abi=soft -c -I$(INC_DIR)
 PICOSDK = ~/pico/pico-sdk
 UF2UTILS = ~/pico/baremetal/uf2/utils
 
-clean: 
+clean:
 	rm -f *.bin *.o *.elf *.list *.uf2 boot2_patch.*
 
 all: $(NAME).uf2
@@ -25,14 +25,15 @@ boot2_patch.o : boot2.bin
 	$(PICOSDK)/src/rp2_common/boot_stage2/pad_checksum -p 256 -s 0xFFFFFFFF boot2.bin boot2_patch.s
 	$(ARMGNU)-as $(AFLAGS) boot2_patch.s -o boot2_patch.o
 
+$uart.o: $uart.c
+	$(ARMGNU)-gcc $(CFLAGS) uart.c -o uart.o
+
 $(NAME).o: $(NAME).c
 	$(ARMGNU)-gcc $(CFLAGS) $(NAME).c -o $(NAME).o
 
-uart.o: uart.c
-	$(ARMGNU)-gcc $(CFLAGS) uart.c -o uart.o
 
-$(NAME).bin : memmap.ld boot2_patch.o uart.o $(NAME).o
-	$(ARMGNU)-ld $(LDFLAGS) -T memmap.ld boot2_patch.o uart.o $(NAME).o -o $(NAME).elf
+$(NAME).bin : memmap.ld boot2_patch.o $(NAME).o uart.o
+	$(ARMGNU)-ld $(LDFLAGS) -T memmap.ld boot2_patch.o $(NAME).o uart.o -o $(NAME).elf
 	$(ARMGNU)-objdump -D $(NAME).elf > $(NAME).list
 	$(ARMGNU)-objcopy -O binary $(NAME).elf $(NAME).bin
 

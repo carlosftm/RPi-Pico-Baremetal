@@ -7,7 +7,7 @@ ARMGNU  = arm-none-eabi
 AFLAGS  = --warn --fatal-warnings -mcpu=$(CPU) -g
 LDFLAGS = -nostdlib
 INC_DIR = ./headers
-CFLAGS  = -mcpu=$(CPU) -ffreestanding -nostartfiles -g -O0 -fpic -mthumb -c -I$(INC_DIR)
+CFLAGS  = -mcpu=$(CPU) -ffreestanding -nostartfiles -g -O0 -fpic -mthumb -mfloat-abi=soft -c -I$(INC_DIR)
 PICOSDK = ~/pico/pico-sdk
 UF2UTILS = ~/pico/baremetal/uf2/utils
 
