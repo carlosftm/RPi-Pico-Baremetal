@@ -16,6 +16,10 @@ Tips:
     - commnad: ./SVDConv rp2040.svd --generate=header --fields=struct --fields=macro  --fields=enum --debug-headerfile
     - I had to add manually the peripheral declaration for the XOR, CLR and SET atomic access.
 
+- Debugging with J-Link:
+    - ![j-tag to RPi Pico connection](https://github.com/carlosftm/RPi-Pico-Baremetal/assets/13556362/58a44b32-9690-4f96-9ead-32db2a957067)
+
+
 References:
 - Raspberry Pi
     - Github
