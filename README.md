@@ -11,6 +11,8 @@ Key Features:
 2. In-depth explanations: Understand the underlying concepts and mechanisms of baremetal programming.
 3. Step-by-step tutorials: Practical, hands-on learning experience from setup to running code on the Raspberry Pi Pico.
 
+Please note that in all the examples provided in this project, the code is intentionally written in an explicit manner, prioritizing clarity over optimization. While advanced programmers may find more efficient ways to implement the same functions with fewer lines of code, my goal here is to ensure that beginners can easily follow along without getting lost in abstract or complex code snippets. The emphasis is on understanding the concepts and principles behind each step, rather than on achieving the most optimized code.
+
 I hope you find this GitHub project inspiring as you embark on your journey into the world of baremetal programming with the RP2040 microcontroller.
 
 Enjoy exploring and building amazing things!
