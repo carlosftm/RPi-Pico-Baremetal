@@ -2,9 +2,35 @@
 
 Do you pine for the nice days of 8-bit microcontrollers, when men were men and wrote their own device drivers?
 
+This repository is a comprehensive guide to programming the Raspberry Pi Pico board based on the RP2040 microcontroller, without relying on the Pico-SDK, operating system or additional software layers. Here, you'll find examples to better understand the RP2040 boot process, how to writing a linker script to load the code to Flash memory or to RAM, configuring peripherals like GPIOs, clocks, PLLs, interrupts, and more.
 
-Tips:
-- Use a Raspberry Pi with Raspbian as your development machine. Most official guides are tested on Raspbian, so you may not find any issues on your Linux environment. 
+By exploring baremetal programming, you'll gain a deep understanding of the RP2040's inner workings and unleash its full potential. Whether you're a beginner or an experienced developer, this project provides the knowledge and resources needed to excel in baremetal programming.
+
+Key Features:
+1. Clear examples: The project includes a variety of examples with detailed explanations with little complexity.
+2. In-depth explanations: Understand the underlying concepts and mechanisms of baremetal programming.
+3. Step-by-step tutorials: Practical, hands-on learning experience from setup to running code on the Raspberry Pi Pico.
+
+I hope you find this GitHub project inspiring as you embark on your journey into the world of baremetal programming with the RP2040 microcontroller.
+
+Enjoy exploring and building amazing things!
+
+
+# Prerequisites:
+
+To get started with this GitHub project, you will need to follow a few prerequisites. Here are the steps required to begin using the project effectively:
+
+1. Biuld machine: This project has been developed and verified on a Linux machine. It is recommended to use a PC with Ubuntu or a Raspberry Pi with Raspbian. The Raspberry Pi Foundation provides strong support for Linux, making it ideal for code development related to the Raspberry Pi Pico.
+
+2. Install Tools and SDK: Follow the instructions provided in the official Raspberry Pi Pico C/C++ SDK documentation to install the necessary build tools (gcc for ARM, CMake, etc.) and the Pico-SDK. The SDK contains essential files and utilities that will be required. Make sure to have these installed on your system before proceeding.
+
+3. RP2040 Based Board: You will need an RP2040 based board to work with this project. The examples and code have been tested on an original Raspberry Pi Pico board. While it is possible to use a different board, please note that you may need to make adaptations to the code. For instance, the on-board LED may be connected to a different GPIO, or the board may use a different external flash memory.
+
+By following these prerequisites, you will set up your development environment and have the necessary tools and hardware to dive into the GitHub project successfully.
+
+
+# Tips:
+
 - By using Microsoft Visual Studio Code with the Remote SSH extension on your Destop PC, you can work remotely on the source code and flash the Pico on the Raspberry Pi (via SSH). I incluided a json file to be able to build the examples by presing **ctrl+shift+b**.
 - The UF2 converter provided in the pico-sdk follows a strict memory map. As I'm not using the linkler script provided in the SDK, in some cases my .elf file did not fulfill the converter memory rules. For that reason I searched for an open source alternative and found the ELF-to-UF2 converter from Microsoft. By using the --wait option, the converter waits the RPI-RP2 drive to be mounted to copy the generated UF2 file there. Very convenient.
 - Serial port:
@@ -20,7 +46,7 @@ Tips:
     - ![j-tag to RPi Pico connection](https://github.com/carlosftm/RPi-Pico-Baremetal/assets/13556362/58a44b32-9690-4f96-9ead-32db2a957067)
 
 
-References:
+# References:
 - Raspberry Pi
     - Github
         - https://github.com/raspberrypi/pico-sdk
