@@ -17,7 +17,7 @@ __attribute__( ( used, section( ".boot.entry" ) ) ) int main( void )
         while( 1 )
         {
                 PUT32( 0xd000001c, ( 1 << 25 ) );      // XOR GPIO
-                for( volatile unsigned int a = 10000; a > 0; a-- );
+                for( volatile unsigned int a = 20000; a > 0; a-- );
         }
 
         return 0;
