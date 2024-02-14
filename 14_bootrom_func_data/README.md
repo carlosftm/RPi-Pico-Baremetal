@@ -3,10 +3,10 @@
 This time we are exploring bootrom of the RP2040. According to the RP2040 datasheet: ```The bootrom is software that is built into the chip, performing the "processor controlled" part of the boot sequence.```
 
 Additioanlly, the bootrom provides:
--- Routines for programming and manipulating the external flash.
--- Fast floating point library.
--- Fast bit counting / manipulation functions.
--- Fast memory fill / copy functions.
++ Routines for programming and manipulating the external flash.
++ Fast floating point library.
++ Fast bit counting / manipulation functions.
++ Fast memory fill / copy functions.
 
 This example access the bootrom by:
 - [x] read the copyright string
