@@ -34,9 +34,7 @@ static void resetSubsys( void )
     RESETS_CLR->RESET_b.pads_bank0 = 1;
     while ( RESETS->RESET_DONE_b.pads_bank0 == 0 );
 
-    RESETS_CLR->RESET_b.i2c0 = 1;
-    while ( RESETS->RESET_DONE_b.i2c0 == 0 );
-
+    // Reset ADC
     RESETS_CLR->RESET_b.adc = 1;
     while ( RESETS->RESET_DONE_b.adc == 0 );
 }
@@ -87,7 +85,7 @@ __attribute__( ( used, section( ".boot.entry" ) ) ) int main( void )
     uartConfig();
     // Config LED
     ledConfig();
-    // Config I2C0 (Master / Fast mode)
+    // Config ADC 
     adcConfig();
 
     uartTxStr( "\r\n\n-- RPi Pico Baremetal --\r\n\n" );
