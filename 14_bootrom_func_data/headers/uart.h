@@ -1,8 +1,8 @@
 // Copyright (c) 2024 CarlosFTM
 // This code is licensed under MIT license (see LICENSE.txt for details)
 
-#ifndef uart0
-#define uart0
+#ifndef uart0_0
+#define uart0_0
 
 void uartConfig( void );
 unsigned char uartRx( void );

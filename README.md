@@ -24,17 +24,21 @@ To get started with this GitHub project, you will need to follow a few prerequis
 
 1. Biuld machine: This project has been developed and verified on a Linux machine. It is recommended to use a PC with Ubuntu or a Raspberry Pi with Raspbian. The Raspberry Pi Foundation provides strong support for Linux, making it ideal for code development related to the Raspberry Pi Pico.
 
-2. Install Tools and SDK: Follow the instructions provided in the official Raspberry Pi Pico C/C++ SDK documentation to install the necessary build tools (gcc for ARM, CMake, etc.) and the Pico-SDK. The SDK contains essential files and utilities that will be required. Make sure to have these installed on your system before proceeding.
+2. Install Tools and SDK (2.1.0 or higher): Follow the instructions provided in the official Raspberry Pi Pico C/C++ SDK documentation to install the necessary build tools (gcc for ARM, CMake, etc.) and the Pico-SDK. The SDK contains essential files and utilities that will be required. Make sure to have these installed on your system before proceeding.
+
+  * [pico-sdk](https://github.com/raspberrypi/pico-sdk): The [Getting started with Raspberry Pi Pico-series](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) guide, describes how to install the C/C++ Pico SDK and all the necesary tools. I personally followed the steps described in `Appendix C: Manual toolchain setup`.
+
+  * [picotool](https://github.com/raspberrypi/picotool): The Raspberry Pi Pico SDK (pico-sdk) version 2.0.0 and above uses picotool to do the ELF-to-UF2 conversion previously handled by the elf2uf2 tool in the SDK. If you installed the Pico SDK using the script from `Appendix C: Manual toolchain setup` of the [Getting started with Raspberry Pi Pico-series](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf), the picotool executable file must have been copied on the `/usr/local/bin`directory by the installation script.
 
 3. RP2040 Based Board: You will need an RP2040 based board to work with this project. The examples and code have been tested on an original Raspberry Pi Pico board. While it is possible to use a different board, please note that you may need to make adaptations to the code. For instance, the on-board LED may be connected to a different GPIO, or the board may use a different external flash memory.
 
 By following these prerequisites, you will set up your development environment and have the necessary tools and hardware to dive into the GitHub project successfully.
 
+Keep in mind that you may need to update the Makefile of each example to match the directory where the `pico-sdk` and the `picotool` are installed.
 
 # Tips:
 
 - By using Microsoft Visual Studio Code with the Remote SSH extension on your Destop PC, you can work remotely on the source code and flash the Pico on the Raspberry Pi (via SSH). I incluided a json file to be able to build the examples by presing **ctrl+shift+b**.
-- The UF2 converter provided in the pico-sdk follows a strict memory map. As I'm not using the linkler script provided in the SDK, in some cases my .elf file did not fulfill the converter memory rules. For that reason I searched for an open source alternative and found the ELF-to-UF2 converter from Microsoft. By using the --wait option, the converter waits the RPI-RP2 drive to be mounted to copy the generated UF2 file there. Very convenient.
 - Serial port:
     - When working with serial port with RPI4, use "sudo raspi-config" -> 3 Interfaces Options -> I6 Serial port to disable shell messages on the serial port and to enable it.
     - if still there is unwanted data on the RPI4 serial port, then disable the following services: "sudo systemctl disable serial-getty@serial0.service"

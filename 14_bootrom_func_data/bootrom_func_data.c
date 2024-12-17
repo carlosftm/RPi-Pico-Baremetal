@@ -125,6 +125,12 @@ __attribute__( ( used, section( ".boot.entry" ) ) ) int main( void )
         delaySec( 1 );
     }
 
+    while(true)
+    {
+        SIO->GPIO_OUT_XOR_b.GPIO_OUT_XOR = ( 1 << 25 );     // XOR the LED pin
+        delaySec( 1 );
+    }
+
     return ( 0 );
 }
 

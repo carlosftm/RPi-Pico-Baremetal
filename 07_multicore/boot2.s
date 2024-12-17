@@ -22,7 +22,7 @@
     str r1, [r0]
 
     ldr r0, =XIP_SSI_CTRLR1
-    ldr r0, =0x00000000
+    ldr r1, =0x00000000
     str r1, [r0]
 
     ldr r0, =XIP_SSI_SSIENR

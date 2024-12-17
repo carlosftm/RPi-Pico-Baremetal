@@ -9,10 +9,7 @@ LDFLAGS = -nostdlib
 INC_DIR = ./headers
 CFLAGS  = -mcpu=$(CPU) -ffreestanding -nostartfiles -g -O0 -fpic -mthumb -c -I$(INC_DIR)
 PICOSDK = ~/pico/pico-sdk
-UF2UTILS = ~/pico/baremetal/uf2/utils
-
-clean: 
-	rm -f *.bin *.o *.elf *.list *.uf2 boot2_patch.*
+PICOTOOL = /usr/local/bin
 
 all: $(NAME).uf2
 
@@ -22,7 +19,7 @@ boot2.bin : boot2.s memmap_boot2.ld
 	$(ARMGNU)-objcopy -O binary boot2.elf boot2.bin
 
 boot2_patch.o : boot2.bin
-	$(PICOSDK)/src/rp2_common/boot_stage2/pad_checksum -p 256 -s 0xFFFFFFFF boot2.bin boot2_patch.s
+	$(PICOSDK)/src/rp2040/boot_stage2/pad_checksum -p 256 -s 0xFFFFFFFF boot2.bin boot2_patch.s
 	$(ARMGNU)-as $(AFLAGS) boot2_patch.s -o boot2_patch.o
 
 $(NAME).o: $(NAME).c
@@ -34,4 +31,7 @@ $(NAME).bin : memmap.ld boot2_patch.o $(NAME).o
 	$(ARMGNU)-objcopy -O binary $(NAME).elf $(NAME).bin
 
 $(NAME).uf2 : $(NAME).bin
-	$(UF2UTILS)/uf2conv.py $(NAME).bin --base 0x10000000 --family RP2040 --output $(NAME).uf2
+	$(PICOTOOL)/picotool uf2 convert $(NAME).bin $(NAME).uf2 -o 0x10000000 --family rp2040
+
+clean: 
+	rm -f *.bin *.o *.elf *.list *.uf2 boot2_patch.*
