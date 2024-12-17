@@ -162,7 +162,7 @@ static void uartTxStr( unsigned char *x )
     while( *x != '\0' )
     {
         uartTx( *x );
-        *x++;
+        x++;
     }
 }
 
